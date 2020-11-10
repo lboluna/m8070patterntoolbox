@@ -1,8 +1,7 @@
+# M8070PatternToolbox: Keysight M8070 Digital Pattern Toolbox
 
-**M8070PatternToolbox: Keysight M8070 Digital Pattern Toolbox**
 
-
-*Current version: 2020.11.9*
+## *Current version: 2020.11.9*
 
 Frustrated after looking through hundreds of pages of user manuals to find out how to build a given data pattern for your Keysight BERT or AWG?
 
@@ -13,11 +12,11 @@ Need to compare and create digital patterns?
 Binary, PAM-4, PAM-3 all supported.
 
 
-**Try M8070PatternToolbox: a fast, free, and flexible way to create data patterns on the Keysight BERTS and AWGs.**
+## **Try M8070PatternToolbox: a fast, free, and flexible way to create data patterns on the Keysight BERTS and AWGs.**
 
 M8070PatternToolbox is a collection of Python classes and functions to read, write, and edit digital patterns.
 
-**Features**
+## **Features**
 
 * Read and write M8070 PTRN files
 * Create PRBS sequences
