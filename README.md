@@ -22,6 +22,11 @@ M8070PatternToolbox is a collection of Python classes and functions to read, wri
 * Create PRBS sequences
 * Encode and decode sequences
 
+
+
+testPatterns.py is an example script 
+
+
 *M8070Pattern Toolbox was written for Python 3.8 and is not currently compatible with legacy Python 2.x*
 
 License: GPL 3
