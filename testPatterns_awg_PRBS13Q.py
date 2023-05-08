@@ -6,6 +6,8 @@ Created on Fri Sep 25 16:38:32 2020
 
 Example code using the M8070PatternToolbox
 
+Purpose of this code is to create patterns to be used by M819X AWG.
+
 """
 
 import numpy as np
@@ -39,9 +41,27 @@ if __name__ == '__main__':
     prbs13ptrn.properties
     prbs13ptrn.writeptrn('PRBS13Q.ptrn')
     
-    print("\n\nPRBS13Q in NRZ, no gray coded {} symbols long:\n{}".format(prbs13ptrn.length,prbs13bin2))
-    print("\n\nPRBS13Q in PAM-4, gray coded {} symbols long:\n{}".format(len(prbs13pamg),prbs13pamg))
+    print()
+    
+    # PRBS13Q Gray Coded
     prbs13bing = pat.sequence.enc_PAM4_to_bin(prbs13pamg)
-    print("\n\nPRBS13Q in NRZ, gray coded {} symbols long:\n{}".format(len(prbs13bing),prbs13bing))
-    prbs13pam = pat.sequence.enc_bin_to_PAM4(prbs13bin2)
-    print("\n\nPRBS13Q in PAM-4, not gray coded {} symbols long:\n{}".format(len(prbs13pam),prbs13pam))
+    prbs13Grayptrn = pat.Pattern.pattern()
+    prbs13Grayptrn.name = 'PRBS13Q_GrayCoded'
+    prbs13Grayptrn.data = prbs13bing
+    prbs13Grayptrn.length = len(prbs13bing)
+    prbs13Grayptrn.properties
+    prbs13Grayptrn.writeptrn('PRBS13Q_GrayCoded.ptrn')
+    
+    print()
+    
+    # below commented out... debugging issue found on precode - LB 4/19/2023
+    # PRBS13Q Gray Coded & Precode
+    prbs13GrayP = pat.sequence.precode(prbs13pamg, first = "3")   #
+    prbs13bingpre = pat.sequence.enc_PAM4_to_bin(prbs13GrayP)
+    prbs13GrayPreptrn = pat.Pattern.pattern()
+    prbs13GrayPreptrn.name = 'PRBS13Q_GrayCodedPrecode'
+    prbs13GrayPreptrn.data = prbs13bingpre
+    prbs13GrayPreptrn.length = len(prbs13bingpre)
+    prbs13GrayPreptrn.properties
+    prbs13GrayPreptrn.writeptrn('PRBS13Q_GrayCodedPrecodeThree.ptrn')
+    

@@ -94,7 +94,7 @@ def enc_PAM4_to_bin(sequence):
     
     """
     
-    enc = {'0':'00', '1':'01', '2':'01', '3':'11'}
+    enc = {'0':'00', '1':'01', '2':'10', '3':'11'}
     prbspam = ''
     for x in enumerate(sequence):
         prbspam += (enc[x[1]])
@@ -282,7 +282,7 @@ def invertPAM4(sequence):
         pattern = pattern + tmp
     return pattern
 
-def precode(sequence):    #CL 94.2.2.6
+def precode(sequence, **kwargs):    #CL 94.2.2.6
     """
     precode(sequence)
     
@@ -295,20 +295,39 @@ def precode(sequence):    #CL 94.2.2.6
     Return value s a string of PAM-4 symbols [0,1,2,3]
     
     """
-    pre = ''
-    prev = 0
-#    tx = 0
-#    p = 0
+    #
+    # April 2023: Added kwargs with init to debig precode initialization. If sequence[0]
+    #    then correlates to Sudeep result in IEEE slide but does not correlate with M8070
+    #    precode.
+    #
+    
+    first = kwargs.get("init", sequence[0])
+#     pre = ''
+#     prev = 0
+# #    tx = 0
+# #    p = 0
+#     for idx in range(0,len(sequence)):
+#         if idx == 0:
+#             p = sequence[idx]
+#         else:
+#             tx = str(int(sequence[idx]) - int(prev))
+#             p = str(int(tx)%4)
+#         pre = pre + p
+#         prev = p
+#         print(" t= %s, P(t) = (G(t)=%s - P(t-1)=%s)%%4 = %s ::: pre=%s" %(str(idx), sequence[idx],prev, p, pre))
+
+    precode = '' #empty out string for use.
+    #init = sequence[0]
+    delay = first
+    
     for idx in range(0,len(sequence)):
-        if idx == 0:
-            p = sequence[idx]
-        else:
-            tx = str(int(sequence[idx]) - int(prev))
-            p = str(int(tx)%4)
-        pre = pre + p
-        prev = p
-        print(" t= %s, P(t) = (G(t)=%s - P(t-1)=%s)%%4 = %s ::: pre=%s" %(str(idx), sequence[idx],prev, p, pre))
-    return pre
+    
+        plus = str(int(sequence[idx]) - int(delay))
+        p = str(int(plus)%4)
+        precode = precode + p 
+        delay = p
+ 
+    return precode
 
 def unprecode(sequence):
     """
@@ -324,6 +343,7 @@ def unprecode(sequence):
     Return value s a string of PAM-4 symbols [0,1,2,3]
     
     """
+    
     tmp = sequence[0]
     #unpre = str((int(sequence[1]) + int(tmp))%4)
     unpre = tmp
